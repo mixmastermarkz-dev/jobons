@@ -27,8 +27,10 @@ jobs:
           cache: "pip"
 
       # 3. Synchroniser avec le dernier commit avant de modifier
-      - name: Pull dernière version
-        run: git pull origin main
+      - name: Sync dernière version
+        run: |
+          git fetch origin main
+          git reset --hard origin/main
 
       # 4. Installer les dépendances
       - name: Installer les dépendances
