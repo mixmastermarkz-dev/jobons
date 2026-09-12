@@ -65,7 +65,7 @@
         !ville || normalise(card.dataset.lieu).includes(ville);
 
       const show = matchSearch && matchContrat && matchSecteur && matchVille;
-      card.hidden = !show;
+      card.style.display = show ? "" : "none";
       if (show) visible++;
     });
 
