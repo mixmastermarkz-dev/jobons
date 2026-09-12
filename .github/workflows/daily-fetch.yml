@@ -49,7 +49,7 @@ jobs:
             echo "Aucune modification détectée — skip commit."
           else
             git commit -m "chore: mise à jour offres $(date -u +'%Y-%m-%d %H:%M UTC')"
-            git pull --rebase origin main
+            git pull --rebase -X theirs origin main
             git push
           fi
 
