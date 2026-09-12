@@ -26,11 +26,7 @@ jobs:
           python-version: "3.12"
           cache: "pip"
 
-      # 3. Récupérer le dernier état du remote (sans toucher aux fichiers)
-      - name: Fetch origin
-        run: git fetch origin main
-
-      # 4. Installer les dépendances
+      # 3. Installer les dépendances
       - name: Installer les dépendances
         run: pip install -r requirements.txt
 
@@ -53,7 +49,7 @@ jobs:
             echo "Aucune modification détectée — skip commit."
           else
             git commit -m "chore: mise à jour offres $(date -u +'%Y-%m-%d %H:%M UTC')"
-            git push --force-with-lease
+            git push --force
           fi
 
       # 7. Déploiement FTP vers OVH
