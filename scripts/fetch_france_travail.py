@@ -24,7 +24,7 @@ TYPES_CONTRAT = ["CDD", "MIS", "SAI"]  # CDD, Intérim, Saisonnier
 # NV5 = CAP/BEP, NV4 = Bac — on exclut NV3 (Bac+2) et au-dessus
 NIVEAUX_OK = {"NV5", "NV4", ""}  # "" = non précisé = accepté
 
-TOKEN_URL = "https://entreprise.francetravail.fr/connexion/oauth2/access_token"
+TOKEN_URL = "https://entreprise.francetravail.fr/connexion/oauth2/access_token?realm=%2Fpartenaire"
 SEARCH_URL = "https://api.francetravail.io/partenaire/offresdemploi/v2/offres/search"
 
 # --- Fake credentials pour développement local ---
@@ -41,7 +41,7 @@ def get_token(client_id: str, client_secret: str) -> str | None:
                 "grant_type": "client_credentials",
                 "client_id": client_id,
                 "client_secret": client_secret,
-                "scope": "api_offresdemploiv2 o2dsoffre",
+                "scope": "o2dsoffre",
             },
             headers={"Content-Type": "application/x-www-form-urlencoded"},
             timeout=15,
