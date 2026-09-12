@@ -52,14 +52,22 @@ jobs:
             git push
           fi
 
-      # 6. (Optionnel) Déploiement GitHub Pages si tu utilises la branche gh-pages
-      # Si tu utilises simplement la branche main / dossier root, Pages se déploie
-      # automatiquement depuis les paramètres du repo → pas besoin de cette étape.
-      # Décommenter uniquement si tu veux un déploiement explicite vers gh-pages :
-      #
-      # - name: Deploy to GitHub Pages
-      #   uses: peaceiris/actions-gh-pages@v4
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     publish_dir: .
-      #     publish_branch: gh-pages
+      # 6. Déploiement FTP vers OVH
+      - name: Deploy vers OVH via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:        ${{ secrets.FTP_HOST }}
+          username:      ${{ secrets.FTP_USERNAME }}
+          password:      ${{ secrets.FTP_PASSWORD }}
+          local-dir:     ./
+          server-dir:    /www/jobons/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/.env
+            **/.claude/**
+            **/scripts/**
+            **/templates/**
+            **/data/history/**
+            "# Prompt*"
