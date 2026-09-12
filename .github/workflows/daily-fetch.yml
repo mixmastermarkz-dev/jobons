@@ -26,11 +26,15 @@ jobs:
           python-version: "3.12"
           cache: "pip"
 
-      # 3. Installer les dépendances
+      # 3. Synchroniser avec le dernier commit avant de modifier
+      - name: Pull dernière version
+        run: git pull origin main
+
+      # 4. Installer les dépendances
       - name: Installer les dépendances
         run: pip install -r requirements.txt
 
-      # 4. Exécuter le pipeline (fetch → merge → generate)
+      # 5. Exécuter le pipeline (fetch → merge → generate)
       - name: Récupérer les offres et générer le site
         env:
           FRANCE_TRAVAIL_CLIENT_ID:     ${{ secrets.FRANCE_TRAVAIL_CLIENT_ID }}
@@ -39,7 +43,7 @@ jobs:
           ADZUNA_APP_KEY:               ${{ secrets.ADZUNA_APP_KEY }}
         run: python scripts/fetch_jobs.py
 
-      # 5. Committer et pousser si des fichiers ont changé
+      # 6. Committer et pousser si des fichiers ont changé
       - name: Commit et push si modifications
         run: |
           git config user.name  "github-actions[bot]"
@@ -49,11 +53,10 @@ jobs:
             echo "Aucune modification détectée — skip commit."
           else
             git commit -m "chore: mise à jour offres $(date -u +'%Y-%m-%d %H:%M UTC')"
-            git pull --rebase -X theirs origin main
             git push
           fi
 
-      # 6. Déploiement FTP vers OVH
+      # 7. Déploiement FTP vers OVH
       - name: Deploy vers OVH via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
