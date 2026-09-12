@@ -14,7 +14,8 @@
   const contratEl = document.getElementById("filter-contrat");
   const secteurEl = document.getElementById("filter-secteur");
   const villeEl   = document.getElementById("filter-ville");
-  const resetBtn  = document.getElementById("filter-reset");
+  const resetBtn    = document.getElementById("filter-reset");
+  const refreshBtn  = document.getElementById("filter-refresh");
 
   const cards = Array.from(grid ? grid.querySelectorAll(".job-card") : []);
 
@@ -99,6 +100,20 @@
     villeEl.value = "";
     clearBtn.hidden = true;
     applyFilters();
+  });
+
+  refreshBtn?.addEventListener("click", () => {
+    const icon = refreshBtn.querySelector(".icon-sm");
+    refreshBtn.classList.add("spinning");
+    refreshBtn.disabled = true;
+    fetch("data/offres.json?t=" + Date.now())
+      .then(r => r.json())
+      .then(() => location.reload())
+      .catch(() => location.reload())
+      .finally(() => {
+        refreshBtn.classList.remove("spinning");
+        refreshBtn.disabled = false;
+      });
   });
 
   // Init
