@@ -49,13 +49,12 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config pull.rebase false
-          # Merger le remote en gardant nos fichiers générés en priorité
-          git merge -X ours origin/main --no-edit
           git add data/offres.json data/history/ index.html
           if git diff --cached --quiet; then
             echo "Aucune modification détectée — skip commit."
           else
             git commit -m "chore: mise à jour offres $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git merge origin/main -X ours --no-edit
             git push
           fi
 
