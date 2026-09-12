@@ -49,17 +49,21 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config pull.rebase false
+          DATE=$(date -u +'%Y-%m-%d')
 
-          # Mettre de côté les fichiers générés
-          git add data/offres.json data/history/ index.html
-          git stash
+          # Sauvegarder les fichiers générés par le pipeline
+          cp data/offres.json      /tmp/offres_new.json
+          cp data/history/${DATE}.json /tmp/history_new.json
+          cp index.html            /tmp/index_new.html
 
-          # Se caler sur le dernier commit du remote
+          # Se caler sur le dernier commit remote
           git fetch origin main
           git reset --hard origin/main
 
           # Restaurer les fichiers générés
-          git stash pop
+          cp /tmp/offres_new.json       data/offres.json
+          cp /tmp/history_new.json      data/history/${DATE}.json
+          cp /tmp/index_new.html        index.html
 
           # Committer et pousser si changement
           git add data/offres.json data/history/ index.html
