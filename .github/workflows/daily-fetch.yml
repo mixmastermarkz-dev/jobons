@@ -1,0 +1,65 @@
+name: Mise à jour quotidienne des offres
+
+on:
+  schedule:
+    # 06:00 UTC = 08:00 heure de Paris (été, UTC+2)
+    # En hiver (UTC+1), ajuster à "0 7 * * *" pour rester à 08h Paris
+    - cron: "0 6 * * *"
+  workflow_dispatch:       # Déclenchement manuel possible depuis GitHub Actions
+
+permissions:
+  contents: write          # Nécessaire pour le commit/push automatique
+
+jobs:
+  fetch-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Récupérer le code
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Installer Python
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      # 3. Installer les dépendances
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+
+      # 4. Exécuter le pipeline (fetch → merge → generate)
+      - name: Récupérer les offres et générer le site
+        env:
+          FRANCE_TRAVAIL_CLIENT_ID:     ${{ secrets.FRANCE_TRAVAIL_CLIENT_ID }}
+          FRANCE_TRAVAIL_CLIENT_SECRET: ${{ secrets.FRANCE_TRAVAIL_CLIENT_SECRET }}
+          ADZUNA_APP_ID:                ${{ secrets.ADZUNA_APP_ID }}
+          ADZUNA_APP_KEY:               ${{ secrets.ADZUNA_APP_KEY }}
+        run: python scripts/fetch_jobs.py
+
+      # 5. Committer et pousser si des fichiers ont changé
+      - name: Commit et push si modifications
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/offres.json data/history/ index.html
+          if git diff --cached --quiet; then
+            echo "Aucune modification détectée — skip commit."
+          else
+            git commit -m "chore: mise à jour offres $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
+
+      # 6. (Optionnel) Déploiement GitHub Pages si tu utilises la branche gh-pages
+      # Si tu utilises simplement la branche main / dossier root, Pages se déploie
+      # automatiquement depuis les paramètres du repo → pas besoin de cette étape.
+      # Décommenter uniquement si tu veux un déploiement explicite vers gh-pages :
+      #
+      # - name: Deploy to GitHub Pages
+      #   uses: peaceiris/actions-gh-pages@v4
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: .
+      #     publish_branch: gh-pages

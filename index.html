@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JobOns — Jobs étudiants Montpellier</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="static/style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════ HEADER ═══════════════ -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <div class="brand">
+          <span class="brand-logo" aria-hidden="true">◈</span>
+          <div>
+            <h1 class="brand-name">JobOns</h1>
+            <p class="brand-tagline">Jobs étudiants · Montpellier &amp; alentours</p>
+          </div>
+        </div>
+        <div class="header-meta">
+          <span class="update-badge">
+            <span class="update-dot"></span>
+            Mis à jour le 12/09/2026 à 08h00
+          </span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════ HERO / SEARCH ═══════════════ -->
+  <section class="hero">
+    <div class="container">
+      <p class="hero-count"><strong id="count-display">12</strong> offres disponibles</p>
+      <div class="search-bar">
+        <svg class="search-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M13 13l3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        <input
+          id="search-input"
+          type="text"
+          placeholder="Métier, entreprise, mot-clé…"
+          autocomplete="off"
+          aria-label="Rechercher une offre"
+        />
+        <button class="search-clear" id="search-clear" aria-label="Effacer" hidden>✕</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ FILTERS ═══════════════ -->
+  <div class="filters-bar">
+    <div class="container">
+      <div class="filters-inner">
+        <div class="filter-group">
+          <label for="filter-contrat" class="filter-label">Contrat</label>
+          <select id="filter-contrat" class="filter-select">
+            <option value="">Tous</option>
+            <option value="CDD">CDD</option>
+            <option value="Intérim">Intérim</option>
+            <option value="Saisonnier">Saisonnier</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="filter-secteur" class="filter-label">Secteur</label>
+          <select id="filter-secteur" class="filter-select">
+            <option value="">Tous</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="filter-ville" class="filter-label">Ville</label>
+          <select id="filter-ville" class="filter-select">
+            <option value="">Toutes</option>
+            <option value="Montpellier">Montpellier</option>
+            <option value="Lattes">Lattes</option>
+            <option value="Pérols">Pérols</option>
+          </select>
+        </div>
+
+        <button class="filter-reset" id="filter-reset">Réinitialiser</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ JOBS GRID ═══════════════ -->
+  <main class="main-content">
+    <div class="container">
+
+      <div id="no-results" class="empty-state" hidden>
+        <p class="empty-icon">🔍</p>
+        <p class="empty-title">Aucune offre trouvée</p>
+        <p class="empty-sub">Essayez d'autres mots-clés ou réinitialisez les filtres.</p>
+      </div>
+
+      <div id="jobs-grid" class="jobs-grid">
+        
+        <article
+          class="job-card"
+          data-titre="serveur / serveuse extra week-end"
+          data-entreprise="brasserie le corum"
+          data-description="nous recherchons un(e) serveur(se) extra pour renforcer notre équipe les week-ends. accueil des clients, prise de commande, service en salle. débutant(e) accepté(e), formation assurée."
+          data-secteur="Hôtellerie-Restauration"
+          data-contrat="CDD"
+          data-lieu="Montpellier (34000)"
+        >
+          <div class="card-header">
+            <div class="card-title-row">
+              <h2 class="job-title">Serveur / Serveuse Extra Week-End</h2>
+              <span class="badge badge-cdd">CDD</span>
+            </div>
+            <p class="job-company">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                <rect x="2" y="7" width="12" height="8" rx="1" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M5 7V5a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.4"/>
+              </svg>
+              Brasserie Le Corum
+            </p>
+          </div>
+
+          <p class="job-description">Nous recherchons un(e) serveur(se) extra pour renforcer notre équipe les week-ends. Accueil des clients, prise de commande, service en salle. Débutant(e) accepté(e), formation assurée.</p>
+
+          <div class="card-footer">
+            <div class="job-meta">
+              <span class="meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <circle cx="8" cy="7" r="3" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M8 12c-3 0-5-2-5-5a5 5 0 1110 0c0 3-2 5-5 5z" stroke="currentColor" stroke-width="1.4"/>
+                </svg>
+                Montpellier (34000)
+              </span>
+              <span class="meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                16h/semaine
+              </span>
+              
+              <span class="meta-item meta-secteur">Hôtellerie-Restauration</span>
+              
+            </div>
+
+            <div class="card-actions">
+              <span class="source-badge source-france_travail">france travail</span>
+              <span class="job-date">2026-09-11</span>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="btn-voir">
+                Voir l'offre
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+        
+        <article
+          class="job-card"
+          data-titre="caissier / caissière temps partiel"
+          data-entreprise="carrefour market lattes"
+          data-description="poste de caissier(ère) à temps partiel dans notre supermarché. accueil et encaissement, mise en rayon ponctuelle. contrat cdd 3 mois, idéal étudiant."
+          data-secteur="Commerce / Distribution"
+          data-contrat="CDD"
+          data-lieu="Lattes (34970)"
+        >
+          <div class="card-header">
+            <div class="card-title-row">
+              <h2 class="job-title">Caissier / Caissière Temps Partiel</h2>
+              <span class="badge badge-cdd">CDD</span>
+            </div>
+            <p class="job-company">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                <rect x="2" y="7" width="12" height="8" rx="1" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M5 7V5a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.4"/>
+              </svg>
+              Carrefour Market Lattes
+            </p>
+          </div>
+
+          <p class="job-description">Poste de caissier(ère) à temps partiel dans notre supermarché. Accueil et encaissement, mise en rayon ponctuelle. Contrat CDD 3 mois, idéal étudiant.</p>
+
+          <div class="card-footer">
+            <div class="job-meta">
+              <span class="meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <circle cx="8" cy="7" r="3" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M8 12c-3 0-5-2-5-5a5 5 0 1110 0c0 3-2 5-5 5z" stroke="currentColor" stroke-width="1.4"/>
+                </svg>
+                Lattes (34970)
+              </span>
+              <span class="meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                20h/semaine
+              </span>
+              
+              <span class="meta-item meta-secteur">Commerce / Distribution</span>
+              
+            </div>
+
+            <div class="card-actions">
+              <span class="source-badge source-france_travail">france travail</span>
+              <span class="job-date">2026-09-10</span>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="btn-voir">
+                Voir l'offre
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+        
+        <article
+          class="job-card"
+          data-titre="animateur / animatrice périscolaire"
+          data-entreprise="ville de montpellier"
+          data-description="animation d'activités périscolaires (mercredis + soirs) pour enfants de 3 à 12 ans. bafa apprécié mais non obligatoire, formation possible."
+          data-secteur="Éducation / Animation"
+          data-contrat="CDD"
+          data-lieu="Montpellier (34000)"
+        >
+          <div class="card-header">
+            <div class="card-title-row">
+              <h2 class="job-title">Animateur / Animatrice Périscolaire</h2>
+              <span class="badge badge-cdd">CDD</span>
+            </div>
+            <p class="job-company">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                <rect x="2" y="7" width="12" height="8" rx="1" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M5 7V5a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.4"/>
+              </svg>
+              Ville de Montpellier
+            </p>
+          </div>
+
+          <p class="job-description">Animation d'activités périscolaires (mercredis + soirs) pour enfants de 3 à 12 ans. BAFA apprécié mais non obligatoire, formation possible.</p>
+
+          <div class="card-footer">
+            <div class="job-meta">
+              <span class="meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <circle cx="8" cy="7" r="3" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M8 12c-3 0-5-2-5-5a5 5 0 1110 0c0 3-2 5-5 5z" stroke="currentColor" stroke-width="1.4"/>
+                </svg>
+                Montpellier (34000)
+              </span>
+              <span class="meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                15h/semaine
+              </span>
+              
+              <span class="meta-item meta-secteur">Éducation / Animation</span>
+              
+            </div>
+
+            <div class="card-actions">
+              <span class="source-badge source-adzuna">adzuna</span>
+              <span class="job-date">2026-09-09</span>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="btn-voir">
+                Voir l'offre
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+        
+        <article
+          class="job-card"
+          data-titre="livreur / livreuse vélo"
+          data-entreprise="stuart logistics"
+          data-description="livraison de colis et repas à vélo ou trottinette dans montpellier centre. horaires flexibles, parfait pour les étudiants. indemnités kilométriques."
+          data-secteur="Transport / Logistique"
+          data-contrat="Intérim"
+          data-lieu="Montpellier (34000)"
+        >
+          <div class="card-header">
+            <div class="card-title-row">
+              <h2 class="job-title">Livreur / Livreuse Vélo</h2>
+              <span class="badge badge-mis">Intérim</span>
+            </div>
+            <p class="job-company">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                <rect x="2" y="7" width="12" height="8" rx="1" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M5 7V5a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.4"/>
+              </svg>
+              Stuart Logistics
+            </p>
+          </div>
+
+          <p class="job-description">Livraison de colis et repas à vélo ou trottinette dans Montpellier centre. Horaires flexibles, parfait pour les étudiants. Indemnités kilométriques.</p>
+
+          <div class="card-footer">
+            <div class="job-meta">
+              <span class="meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <circle cx="8" cy="7" r="3" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M8 12c-3 0-5-2-5-5a5 5 0 1110 0c0 3-2 5-5 5z" stroke="currentColor" stroke-width="1.4"/>
+                </svg>
+                Montpellier (34000)
+              </span>
+              <span class="meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                20h/semaine
+              </span>
+              
+              <span class="meta-item meta-secteur">Transport / Logistique</span>
+              
+            </div>
+
+            <div class="card-actions">
+              <span class="source-badge source-adzuna">adzuna</span>
+              <span class="job-date">2026-09-08</span>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="btn-voir">
+                Voir l'offre
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+        
+        <article
+          class="job-card"
+          data-titre="hôte / hôtesse d'accueil événementiel"
+          data-entreprise="agence prestige events"
+          data-description="missions ponctuelles d'accueil lors de salons, conférences et événements privés au parc des expositions de montpellier. présentation soignée, sens du contact."
+          data-secteur="Événementiel"
+          data-contrat="CDD"
+          data-lieu="Montpellier (34000)"
+        >
+          <div class="card-header">
+            <div class="card-title-row">
+              <h2 class="job-title">Hôte / Hôtesse d'Accueil Événementiel</h2>
+              <span class="badge badge-cdd">CDD</span>
+            </div>
+            <p class="job-company">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                <rect x="2" y="7" width="12" height="8" rx="1" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M5 7V5a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.4"/>
+              </svg>
+              Agence Prestige Events
+            </p>
+          </div>
+
+          <p class="job-description">Missions ponctuelles d'accueil lors de salons, conférences et événements privés au Parc des Expositions de Montpellier. Présentation soignée, sens du contact.</p>
+
+          <div class="card-footer">
+            <div class="job-meta">
+              <span class="meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <circle cx="8" cy="7" r="3" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M8 12c-3 0-5-2-5-5a5 5 0 1110 0c0 3-2 5-5 5z" stroke="currentColor" stroke-width="1.4"/>
+                </svg>
+                Montpellier (34000)
+              </span>
+              <span class="meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                8h/semaine
+              </span>
+              
+              <span class="meta-item meta-secteur">Événementiel</span>
+              
+            </div>
+
+            <div class="card-actions">
+              <span class="source-badge source-jobijoba">jobijoba</span>
+              <span class="job-date">2026-09-07</span>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="btn-voir">
+                Voir l'offre
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+        
+        <article
+          class="job-card"
+          data-titre="baby-sitter"
+          data-entreprise="famille particulière"
+          data-description="garde de 2 enfants (4 et 7 ans) les soirs de semaine 18h-20h30 et le samedi matin. expérience avec les enfants appréciée, non obligatoire."
+          data-secteur="Services à la personne"
+          data-contrat="CDD"
+          data-lieu="Pérols (34470)"
+        >
+          <div class="card-header">
+            <div class="card-title-row">
+              <h2 class="job-title">Baby-Sitter</h2>
+              <span class="badge badge-cdd">CDD</span>
+            </div>
+            <p class="job-company">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                <rect x="2" y="7" width="12" height="8" rx="1" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M5 7V5a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.4"/>
+              </svg>
+              Famille particulière
+            </p>
+          </div>
+
+          <p class="job-description">Garde de 2 enfants (4 et 7 ans) les soirs de semaine 18h-20h30 et le samedi matin. Expérience avec les enfants appréciée, non obligatoire.</p>
+
+          <div class="card-footer">
+            <div class="job-meta">
+              <span class="meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <circle cx="8" cy="7" r="3" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M8 12c-3 0-5-2-5-5a5 5 0 1110 0c0 3-2 5-5 5z" stroke="currentColor" stroke-width="1.4"/>
+                </svg>
+                Pérols (34470)
+              </span>
+              <span class="meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                10h/semaine
+              </span>
+              
+              <span class="meta-item meta-secteur">Services à la personne</span>
+              
+            </div>
+
+            <div class="card-actions">
+              <span class="source-badge source-hellowork">hellowork</span>
+              <span class="job-date">2026-09-10</span>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="btn-voir">
+                Voir l'offre
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+        
+        <article
+          class="job-card"
+          data-titre="vendeur / vendeuse prêt-à-porter"
+          data-entreprise="zara odysseum"
+          data-description="conseil clientèle, réassort et gestion des cabines d'essayage. cdd 3 mois dans notre boutique du centre commercial odysseum. formation interne assurée."
+          data-secteur="Commerce / Retail"
+          data-contrat="CDD"
+          data-lieu="Montpellier (34000)"
+        >
+          <div class="card-header">
+            <div class="card-title-row">
+              <h2 class="job-title">Vendeur / Vendeuse Prêt-à-Porter</h2>
+              <span class="badge badge-cdd">CDD</span>
+            </div>
+            <p class="job-company">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                <rect x="2" y="7" width="12" height="8" rx="1" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M5 7V5a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.4"/>
+              </svg>
+              Zara Odysseum
+            </p>
+          </div>
+
+          <p class="job-description">Conseil clientèle, réassort et gestion des cabines d'essayage. CDD 3 mois dans notre boutique du centre commercial Odysseum. Formation interne assurée.</p>
+
+          <div class="card-footer">
+            <div class="job-meta">
+              <span class="meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <circle cx="8" cy="7" r="3" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M8 12c-3 0-5-2-5-5a5 5 0 1110 0c0 3-2 5-5 5z" stroke="currentColor" stroke-width="1.4"/>
+                </svg>
+                Montpellier (34000)
+              </span>
+              <span class="meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                20h/semaine
+              </span>
+              
+              <span class="meta-item meta-secteur">Commerce / Retail</span>
+              
+            </div>
+
+            <div class="card-actions">
+              <span class="source-badge source-france_travail">france travail</span>
+              <span class="job-date">2026-09-06</span>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="btn-voir">
+                Voir l'offre
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+        
+        <article
+          class="job-card"
+          data-titre="téléconseiller / téléconseillère"
+          data-entreprise="webhelp montpellier"
+          data-description="réception d'appels entrants pour le compte d'un client du secteur télécom. diction claire, bonne expression écrite. horaires adaptables selon planning."
+          data-secteur="Centre d'appels"
+          data-contrat="CDD"
+          data-lieu="Montpellier (34000)"
+        >
+          <div class="card-header">
+            <div class="card-title-row">
+              <h2 class="job-title">Téléconseiller / Téléconseillère</h2>
+              <span class="badge badge-cdd">CDD</span>
+            </div>
+            <p class="job-company">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                <rect x="2" y="7" width="12" height="8" rx="1" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M5 7V5a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.4"/>
+              </svg>
+              Webhelp Montpellier
+            </p>
+          </div>
+
+          <p class="job-description">Réception d'appels entrants pour le compte d'un client du secteur télécom. Diction claire, bonne expression écrite. Horaires adaptables selon planning.</p>
+
+          <div class="card-footer">
+            <div class="job-meta">
+              <span class="meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <circle cx="8" cy="7" r="3" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M8 12c-3 0-5-2-5-5a5 5 0 1110 0c0 3-2 5-5 5z" stroke="currentColor" stroke-width="1.4"/>
+                </svg>
+                Montpellier (34000)
+              </span>
+              <span class="meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                20h/semaine
+              </span>
+              
+              <span class="meta-item meta-secteur">Centre d'appels</span>
+              
+            </div>
+
+            <div class="card-actions">
+              <span class="source-badge source-adzuna">adzuna</span>
+              <span class="job-date">2026-09-05</span>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="btn-voir">
+                Voir l'offre
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+        
+        <article
+          class="job-card"
+          data-titre="manutentionnaire entrepôt"
+          data-entreprise="geodis lattes"
+          data-description="préparation de commandes, manutention et étiquetage dans notre entrepôt logistique. horaires du matin disponibles. caces non requis."
+          data-secteur="Logistique / Entrepôt"
+          data-contrat="Intérim"
+          data-lieu="Lattes (34970)"
+        >
+          <div class="card-header">
+            <div class="card-title-row">
+              <h2 class="job-title">Manutentionnaire Entrepôt</h2>
+              <span class="badge badge-mis">Intérim</span>
+            </div>
+            <p class="job-company">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                <rect x="2" y="7" width="12" height="8" rx="1" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M5 7V5a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.4"/>
+              </svg>
+              Geodis Lattes
+            </p>
+          </div>
+
+          <p class="job-description">Préparation de commandes, manutention et étiquetage dans notre entrepôt logistique. Horaires du matin disponibles. CACES non requis.</p>
+
+          <div class="card-footer">
+            <div class="job-meta">
+              <span class="meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <circle cx="8" cy="7" r="3" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M8 12c-3 0-5-2-5-5a5 5 0 1110 0c0 3-2 5-5 5z" stroke="currentColor" stroke-width="1.4"/>
+                </svg>
+                Lattes (34970)
+              </span>
+              <span class="meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                20h/semaine
+              </span>
+              
+              <span class="meta-item meta-secteur">Logistique / Entrepôt</span>
+              
+            </div>
+
+            <div class="card-actions">
+              <span class="source-badge source-france_travail">france travail</span>
+              <span class="job-date">2026-09-09</span>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="btn-voir">
+                Voir l'offre
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+        
+        <article
+          class="job-card"
+          data-titre="moniteur / monitrice natation"
+          data-entreprise="centre aquatique pérols"
+          data-description="cours de natation pour enfants et adultes débutants. beesan ou bpjeps activités aquatiques requis. contrat saisonnier été / vacances scolaires."
+          data-secteur="Sport / Loisirs"
+          data-contrat="Saisonnier"
+          data-lieu="Pérols (34470)"
+        >
+          <div class="card-header">
+            <div class="card-title-row">
+              <h2 class="job-title">Moniteur / Monitrice Natation</h2>
+              <span class="badge badge-sai">Saisonnier</span>
+            </div>
+            <p class="job-company">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                <rect x="2" y="7" width="12" height="8" rx="1" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M5 7V5a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.4"/>
+              </svg>
+              Centre Aquatique Pérols
+            </p>
+          </div>
+
+          <p class="job-description">Cours de natation pour enfants et adultes débutants. BEESAN ou BPJEPS activités aquatiques requis. Contrat saisonnier été / vacances scolaires.</p>
+
+          <div class="card-footer">
+            <div class="job-meta">
+              <span class="meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <circle cx="8" cy="7" r="3" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M8 12c-3 0-5-2-5-5a5 5 0 1110 0c0 3-2 5-5 5z" stroke="currentColor" stroke-width="1.4"/>
+                </svg>
+                Pérols (34470)
+              </span>
+              <span class="meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                15h/semaine
+              </span>
+              
+              <span class="meta-item meta-secteur">Sport / Loisirs</span>
+              
+            </div>
+
+            <div class="card-actions">
+              <span class="source-badge source-france_travail">france travail</span>
+              <span class="job-date">2026-09-08</span>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="btn-voir">
+                Voir l'offre
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+        
+        <article
+          class="job-card"
+          data-titre="assistant / assistante vente boulangerie"
+          data-entreprise="boulangerie artisanale paul"
+          data-description="vente et conseil en boulangerie-pâtisserie, mise en vitrine, encaissement. horaires variables (matin ou après-midi). travail le week-end."
+          data-secteur="Alimentation / Commerce"
+          data-contrat="CDD"
+          data-lieu="Montpellier (34000)"
+        >
+          <div class="card-header">
+            <div class="card-title-row">
+              <h2 class="job-title">Assistant / Assistante Vente Boulangerie</h2>
+              <span class="badge badge-cdd">CDD</span>
+            </div>
+            <p class="job-company">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                <rect x="2" y="7" width="12" height="8" rx="1" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M5 7V5a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.4"/>
+              </svg>
+              Boulangerie Artisanale Paul
+            </p>
+          </div>
+
+          <p class="job-description">Vente et conseil en boulangerie-pâtisserie, mise en vitrine, encaissement. Horaires variables (matin ou après-midi). Travail le week-end.</p>
+
+          <div class="card-footer">
+            <div class="job-meta">
+              <span class="meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <circle cx="8" cy="7" r="3" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M8 12c-3 0-5-2-5-5a5 5 0 1110 0c0 3-2 5-5 5z" stroke="currentColor" stroke-width="1.4"/>
+                </svg>
+                Montpellier (34000)
+              </span>
+              <span class="meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                18h/semaine
+              </span>
+              
+              <span class="meta-item meta-secteur">Alimentation / Commerce</span>
+              
+            </div>
+
+            <div class="card-actions">
+              <span class="source-badge source-jobijoba">jobijoba</span>
+              <span class="job-date">2026-09-11</span>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="btn-voir">
+                Voir l'offre
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+        
+        <article
+          class="job-card"
+          data-titre="agent de sécurité ssiap"
+          data-entreprise="securitas montpellier"
+          data-description="surveillance de site commercial, accueil et contrôle d'accès. carte professionnelle en cours de validité exigée. vacations de jour et nuit disponibles."
+          data-secteur="Sécurité"
+          data-contrat="CDD"
+          data-lieu="Montpellier (34000)"
+        >
+          <div class="card-header">
+            <div class="card-title-row">
+              <h2 class="job-title">Agent de Sécurité SSIAP</h2>
+              <span class="badge badge-cdd">CDD</span>
+            </div>
+            <p class="job-company">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                <rect x="2" y="7" width="12" height="8" rx="1" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M5 7V5a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.4"/>
+              </svg>
+              Securitas Montpellier
+            </p>
+          </div>
+
+          <p class="job-description">Surveillance de site commercial, accueil et contrôle d'accès. Carte professionnelle en cours de validité exigée. Vacations de jour et nuit disponibles.</p>
+
+          <div class="card-footer">
+            <div class="job-meta">
+              <span class="meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <circle cx="8" cy="7" r="3" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M8 12c-3 0-5-2-5-5a5 5 0 1110 0c0 3-2 5-5 5z" stroke="currentColor" stroke-width="1.4"/>
+                </svg>
+                Montpellier (34000)
+              </span>
+              <span class="meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                20h/semaine
+              </span>
+              
+              <span class="meta-item meta-secteur">Sécurité</span>
+              
+            </div>
+
+            <div class="card-actions">
+              <span class="source-badge source-adzuna">adzuna</span>
+              <span class="job-date">2026-09-04</span>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="btn-voir">
+                Voir l'offre
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+        
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        Données issues de <strong>France Travail</strong> et <strong>Adzuna</strong>.
+        Offres filtrées : CDD · Intérim · Saisonnier · max 20h/sem · sans diplôme requis.
+      </p>
+      <p class="footer-copy">© 2026 JobOns — Projet open-source, aucun lien avec les employeurs listés.</p>
+    </div>
+  </footer>
+
+  <script src="static/app.js"></script>
+</body>
+</html>

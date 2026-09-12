@@ -1,0 +1,16 @@
+# Variables d'environnement — NE JAMAIS committer
+.env
+
+# Claude Code (settings locaux)
+.claude/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,77 @@
+# Prompt à donner à Claude Code — Site "Jobs Étudiants Montpellier"
+
+Copie-colle tout le bloc ci-dessous dans Claude Code (dans le dossier où tu veux créer le projet) pour démarrer la construction.
+
+---
+
+## Contexte et objectif
+
+Je veux un site web qui recense chaque jour des offres d'emploi étudiant (temps partiel, job d'appoint, saisonnier) à Montpellier et dans un rayon proche (ex: 20 km). Le site doit se mettre à jour automatiquement une fois par jour, sans que j'aie besoin d'intervenir manuellement, et rester gratuit à faire tourner.
+
+**Avant d'écrire la moindre ligne de code**, écris un plan détaillé (architecture, structure de fichiers, choix techniques, questions ouvertes) et présente-le moi pour validation. Si une information te manque (clé API, nom du repo GitHub, préférences de design, etc.), demande-la moi plutôt que de choisir à ma place.
+
+## Sources de données à utiliser
+
+1. **France Travail (ex-Pôle Emploi) — API officielle** (source principale, fiable et légale)
+   - Documentation : https://francetravail.io/data/api/offres-emploi
+   - Inscription développeur gratuite requise (client_id + client_secret, scope `api_offresdemploiv2`)
+   - Filtrer sur : commune Montpellier (code INSEE 34172) + communes limitrophes ou rayon, mots-clés ("étudiant", "job étudiant", "temps partiel", "week-end"), type de contrat, durée hebdomadaire
+
+2. **Adzuna — API officielle** (source complémentaire légale, gratuite avec clé)
+   - https://developer.adzuna.com/
+   - Bonne couverture France, filtrable par ville et catégorie
+
+3. **Agrégateurs spécialisés jobs étudiants** (Jobijoba, HelloWork, Studentjob.fr, etc.) : à intégrer **en best-effort seulement**
+   - Vérifie d'abord si chacun propose un flux RSS ou une API pour une recherche donnée (souvent le cas pour Jobijoba/HelloWork)
+   - Vérifie systématiquement le `robots.txt` et les CGU avant tout scraping ; n'implémente le scraping que si c'est autorisé, avec un User-Agent identifiable et un rate limiting raisonnable
+   - Chaque source de ce type doit être encapsulée avec gestion d'erreur silencieuse : si une source tombe en panne ou change de structure, le pipeline quotidien ne doit pas planter, il doit juste logguer un avertissement et continuer avec les autres sources
+   - **Ne pas** scraper Indeed ou LinkedIn (CGU l'interdisent explicitement) ni Leboncoin (CGU strictes) — reste sur des sources officielles/autorisées
+
+4. **Bonus optionnel** : la page "jobs étudiants" du CROUS de Montpellier et/ou des universités locales (UM, Paul-Valéry) si elles publient une liste consultable simplement
+
+## Stack technique (rester simple)
+
+- **Génération** : script Python (requests + feedparser/BeautifulSoup si besoin), pas de framework backend lourd
+- **Stockage** : fichier `data/offres.json` (état courant) + archive quotidienne `data/history/YYYY-MM-DD.json` pour garder un historique et permettre la déduplication (clé = URL de l'offre, ou hash titre+entreprise+lieu)
+- **Site** : site statique (HTML/CSS/JS vanilla, généré via un template simple type Jinja2), pas besoin de React/Next.js pour ce cas d'usage
+- **Filtrage côté client** : barre de recherche + filtres (mot-clé, secteur, type de contrat) en JS vanilla qui lit `offres.json`
+- **Hébergement + cron** : GitHub Actions + GitHub Pages (gratuit, pas de serveur à maintenir)
+
+## Automatisation quotidienne
+
+- Workflow `.github/workflows/daily-fetch.yml` avec :
+  - `schedule: cron: '0 6 * * *'` (~8h heure de Paris en été, à ajuster / documenter le décalage horaire) + `workflow_dispatch` pour pouvoir le lancer manuellement
+  - Étapes : checkout, setup Python, install dépendances, exécuter `scripts/fetch_jobs.py`, commit + push si `offres.json` a changé, régénérer `index.html`
+  - GitHub Pages déploie automatiquement depuis la branche configurée
+- Secrets à stocker dans les paramètres GitHub du repo (jamais en clair dans le code) : `FRANCE_TRAVAIL_CLIENT_ID`, `FRANCE_TRAVAIL_CLIENT_SECRET`, `ADZUNA_APP_ID`, `ADZUNA_APP_KEY`
+- Fournis un `.env.example` pour le développement local
+
+## UI attendue
+
+- Interface en français, mobile-first
+- Pour chaque offre : titre, entreprise, lieu, date de publication, type de contrat, lien vers l'offre originale, badge indiquant la source
+- Recherche par mot-clé + filtres (secteur, type de contrat)
+- Bandeau "Dernière mise à jour : [date]" bien visible
+- Gestion propre des cas vides / erreurs (ex: une source indisponible ne doit jamais casser l'affichage des autres)
+
+## Plan de construction demandé (phases)
+
+1. Setup du repo (structure de fichiers, README, `.env.example`)
+2. Script de récupération France Travail (API officielle) + tests
+3. Script Adzuna (source complémentaire)
+4. Scripts best-effort pour les agrégateurs (RSS si disponible), avec fallback silencieux
+5. Fusion, déduplication et filtrage "pertinent étudiant" (mots-clés + contrats courts/temps partiel)
+6. Génération du site statique (template + JS de filtrage)
+7. Workflow GitHub Actions (cron quotidien + déploiement Pages)
+8. Tests, documentation README (comment créer le repo, activer Pages, ajouter les secrets, lancer en local)
+
+## Contraintes légales / éthiques
+
+- Ne scraper que ce qui est autorisé par les CGU / robots.txt
+- Toujours privilégier les APIs officielles (France Travail, Adzuna) comme socle fiable
+- User-Agent identifiable et fréquence de requêtes raisonnable pour tout scraping
+- Ne jamais committer de clé API en clair dans le code
+
+---
+
+**Rappel pour Claude Code** : commence par le plan détaillé et attends ma validation avant de coder. Pose-moi des questions si des choix (nom du repo, design précis, rayon exact autour de Montpellier, etc.) ne sont pas clairs.
