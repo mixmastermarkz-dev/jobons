@@ -11,6 +11,8 @@ import logging
 import sys
 from datetime import datetime
 from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()
 
 # Ajout du dossier parent au path pour imports relatifs
 sys.path.insert(0, str(Path(__file__).parent.parent))

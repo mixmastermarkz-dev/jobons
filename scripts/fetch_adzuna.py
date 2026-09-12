@@ -27,14 +27,11 @@ def fetch_page(app_id: str, app_key: str, ville: str, page: int = 1) -> list[dic
         resp = requests.get(
             SEARCH_URL.format(page=page),
             params={
-                "app_id":          app_id,
-                "app_key":         app_key,
-                "where":           ville,
-                "distance":        10,        # km
-                "what_or":         KEYWORDS,
-                "contract_type":   "part_time",
+                "app_id":           app_id,
+                "app_key":          app_key,
+                "where":            ville,
+                "what_or":          KEYWORDS,
                 "results_per_page": 50,
-                "content-type":    "application/json",
             },
             timeout=20,
         )
