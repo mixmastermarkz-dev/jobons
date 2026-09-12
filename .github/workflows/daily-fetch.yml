@@ -26,11 +26,9 @@ jobs:
           python-version: "3.12"
           cache: "pip"
 
-      # 3. Synchroniser avec le dernier commit avant de modifier
-      - name: Sync dernière version
-        run: |
-          git fetch origin main
-          git reset --hard origin/main
+      # 3. Récupérer le dernier état du remote (sans toucher aux fichiers)
+      - name: Fetch origin
+        run: git fetch origin main
 
       # 4. Installer les dépendances
       - name: Installer les dépendances
@@ -50,6 +48,9 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config pull.rebase false
+          # Merger le remote en gardant nos fichiers générés en priorité
+          git merge -X ours origin/main --no-edit
           git add data/offres.json data/history/ index.html
           if git diff --cached --quiet; then
             echo "Aucune modification détectée — skip commit."
