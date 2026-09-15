@@ -215,3 +215,50 @@ class TestUrlValidation:
         assert result is not None
         # Fallback vers l'URL candidat.francetravail.fr
         assert result["url"].startswith("https://candidat.francetravail.fr")
+
+
+# ── Tests : autoescape Jinja2 — protection XSS ───────────────────────────────
+
+class TestAutoescapeXSS:
+    """
+    Vérifie que le template index.html.j2 échappe correctement les données
+    tiers (titres, descriptions d'offres) — protection contre les injections XSS.
+
+    Note : autoescape=True (et non select_autoescape(["html"])) est requis car
+    le template s'appelle "index.html.j2" (extension .j2) — select_autoescape
+    se base sur l'extension et aurait désactivé silencieusement l'échappement.
+    """
+
+    def _render_with_payload(self, titre: str) -> str:
+        from pathlib import Path
+        from jinja2 import Environment, FileSystemLoader
+        tmpl_dir = Path(__file__).parent.parent / "templates"
+        env = Environment(loader=FileSystemLoader(str(tmpl_dir)), autoescape=True)
+        template = env.get_template("index.html.j2")
+        offre = {
+            "titre": titre,
+            "entreprise": "Test",
+            "lieu": "Montpellier (34)",
+            "date_publication": "2026-09-15",
+            "type_contrat": "CDD",
+            "type_contrat_label": "CDD",
+            "duree_hebdo": "Temps partiel",
+            "secteur": "",
+            "description": "Description test.",
+            "url": "https://example.com/offre/1",
+            "source": "adzuna",
+            "niveau_formation": "Non précisé",
+            "experience_exige": "",
+        }
+        return template.render(offres=[offre], last_update="15/09/2026 à 08h00", total=1, annee=2026)
+
+    def test_script_tag_echappe(self):
+        """Un <script> dans le titre ne doit pas apparaître en clair dans le HTML."""
+        html = self._render_with_payload('<script>alert(1)</script>')
+        assert "<script>alert" not in html
+        assert "&lt;script&gt;" in html
+
+    def test_attribut_data_titre_echappe(self):
+        """Un guillemet cassant data-titre ne doit pas apparaître en clair."""
+        html = self._render_with_payload('" onmouseover="alert(2)')
+        assert 'onmouseover="alert' not in html

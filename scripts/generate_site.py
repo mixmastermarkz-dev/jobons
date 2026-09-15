@@ -6,7 +6,7 @@ import json
 import logging
 from pathlib import Path
 from datetime import datetime
-from jinja2 import Environment, FileSystemLoader, select_autoescape
+from jinja2 import Environment, FileSystemLoader
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +30,11 @@ def generate():
 
     env      = Environment(
         loader=FileSystemLoader(str(TMPL_DIR)),
-        autoescape=select_autoescape(["html"]),
+        # autoescape=True (et non select_autoescape(["html"])) : le template
+        # s'appelle "index.html.j2", donc select_autoescape se base sur
+        # l'extension ".j2" et désactive silencieusement l'échappement —
+        # ça laissait la faille XSS grande ouverte malgré les apparences.
+        autoescape=True,
     )
     template = env.get_template("index.html.j2")
     html     = template.render(
