@@ -30,6 +30,15 @@ jobs:
       - name: Installer les dépendances
         run: pip install -r requirements.txt
 
+      # 4. Scan des secrets (gitleaks)
+      # Échoue le workflow si un secret est détecté dans le code.
+      # Pour whitelister un faux positif : ajouter une règle dans .gitleaks.toml
+      # ou annoter la ligne concernée avec le commentaire : # gitleaks:allow
+      - name: Scan des secrets (gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       # 5. Exécuter le pipeline (fetch → merge → generate)
       - name: Récupérer les offres et générer le site
         env:

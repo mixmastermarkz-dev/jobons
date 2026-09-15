@@ -6,7 +6,7 @@ import json
 import logging
 from pathlib import Path
 from datetime import datetime
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 logger = logging.getLogger(__name__)
 
@@ -28,7 +28,10 @@ def generate():
     last_update    = payload.get("last_update", datetime.today().strftime("%d/%m/%Y à %Hh%M"))
     total          = len(offres)
 
-    env      = Environment(loader=FileSystemLoader(str(TMPL_DIR)))
+    env      = Environment(
+        loader=FileSystemLoader(str(TMPL_DIR)),
+        autoescape=select_autoescape(["html"]),
+    )
     template = env.get_template("index.html.j2")
     html     = template.render(
         offres=offres,

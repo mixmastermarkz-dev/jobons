@@ -1,7 +1,17 @@
 """
 Récupère les offres depuis des flux RSS autorisés.
-Sources : Jobijoba, HelloWork (flux RSS publics, vérifiés légalement).
 Chaque source est encapsulée avec gestion d'erreur silencieuse.
+
+─── État des sources (mis à jour 2026-09-15) ───────────────────────────────────
+- jobijoba  : DÉSACTIVÉE — HTTP 404, le flux RSS n'existe plus (site racheté par
+              Indeed en 2022, endpoint supprimé). À remplacer par une nouvelle
+              source dans une itération dédiée.
+- hellowork : DÉSACTIVÉE — HTTP 200 mais retourne du HTML (330 Ko), le paramètre
+              ?media=rss est désormais ignoré, HelloWork a supprimé son support RSS.
+              À remplacer par une nouvelle source dans une itération dédiée.
+
+Ces sources sont conservées dans RSS_SOURCES avec enabled=False pour traçabilité.
+Ne pas remettre enabled=True sans avoir vérifié que l'URL est à nouveau valide.
 """
 
 import logging
@@ -20,14 +30,14 @@ REQUEST_TIMEOUT = 15
 # HelloWork : flux RSS disponible sur les pages de recherche
 RSS_SOURCES = [
     {
-        "name": "jobijoba",
-        "url":  "https://www.jobijoba.com/fr/flux-rss/?q=job+étudiant&l=Montpellier&d=20",
-        "enabled": True,
+        "name":    "jobijoba",
+        "url":     "https://www.jobijoba.com/fr/flux-rss/?q=job+étudiant&l=Montpellier&d=20",
+        "enabled": False,  # MORT — HTTP 404, flux supprimé (voir docstring module)
     },
     {
-        "name": "hellowork",
-        "url":  "https://www.hellowork.com/fr-fr/emploi/recherche.html?q=job+etudiant&l=Montpellier+(34)&c=PART_TIME&media=rss",
-        "enabled": True,
+        "name":    "hellowork",
+        "url":     "https://www.hellowork.com/fr-fr/emploi/recherche.html?q=job+etudiant&l=Montpellier+(34)&c=PART_TIME&media=rss",
+        "enabled": False,  # MORT — renvoie du HTML, support RSS supprimé (voir docstring module)
     },
 ]
 
@@ -69,6 +79,10 @@ def fetch_source(source: dict) -> list[dict]:
                 except Exception:
                     pass
 
+            # Validation URL — refuser les schémas dangereux (ex. javascript:)
+            url_raw = entry.get("link", "")
+            url = url_raw if url_raw.startswith(("https://", "http://")) else ""
+
             unique_key = f"{name}_{entry.get('link','')}"
             offres.append({
                 "id":               hashlib.md5(unique_key.encode()).hexdigest()[:12],
@@ -80,9 +94,11 @@ def fetch_source(source: dict) -> list[dict]:
                 "duree_hebdo":      "Temps partiel",
                 "secteur":          "",
                 "description":      (entry.get("summary") or "")[:300].strip(),
-                "url":              entry.get("link", ""),
+                "url":              url,
                 "source":           name,
                 "niveau_formation": "Non précisé",
+                # Pas de champ structuré experienceExige pour RSS — filtrage textuel dans merge_jobs.py
+                "experience_exige": "",
             })
 
         logger.info(f"[RSS/{name}] {len(offres)} offres retenues.")

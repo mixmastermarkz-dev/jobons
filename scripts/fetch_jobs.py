@@ -9,7 +9,7 @@ Script principal — orchestration du pipeline quotidien :
 import json
 import logging
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from dotenv import load_dotenv
 load_dotenv()
@@ -91,6 +91,17 @@ def run():
     with open(archive_file, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
     logger.info(f"✓ Archive {archive_file.name} créée")
+
+    # Nettoyage des archives > 90 jours (politique de rétention)
+    cutoff = datetime.today() - timedelta(days=90)
+    for old_archive in HISTORY_DIR.glob("*.json"):
+        try:
+            file_date = datetime.strptime(old_archive.stem, "%Y-%m-%d")
+            if file_date < cutoff:
+                old_archive.unlink()
+                logger.info(f"✓ Archive expirée supprimée : {old_archive.name}")
+        except (ValueError, OSError):
+            pass
 
     # 4. Génération du site
     generate()

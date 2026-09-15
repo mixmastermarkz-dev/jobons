@@ -1,0 +1,22 @@
+# Configuration gitleaks — JobOns
+# https://github.com/gitleaks/gitleaks#configuration
+#
+# Gitleaks échoue le workflow CI si un vrai secret est détecté dans le code.
+#
+# ─── Whitelister un faux positif ────────────────────────────────────────────
+# Option A (recommandée) : annoter la ligne dans le code source :
+#   FAKE_CLIENT_ID_REPLACE_ME  # gitleaks:allow
+#
+# Option B : ajouter le pattern dans [allowlist] ci-dessous avec une description.
+#
+# Option C : ajouter le SHA1 du commit dans allowlist.commits si le faux positif
+#   est dans un commit historique non réécrivable.
+# ────────────────────────────────────────────────────────────────────────────
+
+title = "JobOns gitleaks config"
+
+[allowlist]
+  description = "Identifiants fictifs de développement (marqueurs FAKE_*_REPLACE_ME)"
+  regexes = [
+    '''FAKE_[A-Z_]+_REPLACE_ME''',
+  ]
