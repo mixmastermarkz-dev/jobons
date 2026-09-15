@@ -84,6 +84,15 @@
           </select>
         </div>
 
+        <div class="filter-group">
+          <label for="filter-source" class="filter-label">Source</label>
+          <select id="filter-source" class="filter-select">
+            <option value="">Toutes</option>
+            <option value="france_travail">France Travail</option>
+            <option value="adzuna">Adzuna</option>
+          </select>
+        </div>
+
         <button class="filter-reset" id="filter-reset">Réinitialiser</button>
         <button class="filter-refresh" id="filter-refresh">
           <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="icon-sm">
@@ -116,6 +125,7 @@
           data-secteur="{{ offre.secteur }}"
           data-contrat="{{ offre.type_contrat_label }}"
           data-lieu="{{ offre.lieu }}"
+          data-source="{{ offre.source }}"
         >
           <div class="card-header">
             <div class="card-title-row">

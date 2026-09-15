@@ -14,6 +14,7 @@
   const contratEl = document.getElementById("filter-contrat");
   const secteurEl = document.getElementById("filter-secteur");
   const villeEl   = document.getElementById("filter-ville");
+  const sourceEl  = document.getElementById("filter-source");
   const resetBtn    = document.getElementById("filter-reset");
   const refreshBtn  = document.getElementById("filter-refresh");
 
@@ -46,6 +47,7 @@
     const contrat = contratEl.value;
     const secteur = secteurEl.value;
     const ville   = normalise(villeEl.value);
+    const source  = sourceEl.value;
 
     let visible = 0;
 
@@ -65,7 +67,10 @@
       const matchVille =
         !ville || normalise(card.dataset.lieu).includes(ville);
 
-      const show = matchSearch && matchContrat && matchSecteur && matchVille;
+      const matchSource =
+        !source || card.dataset.source === source;
+
+      const show = matchSearch && matchContrat && matchSecteur && matchVille && matchSource;
       card.style.display = show ? "" : "none";
       if (show) visible++;
     });
@@ -85,6 +90,7 @@
   contratEl?.addEventListener("change", applyFilters);
   secteurEl?.addEventListener("change", applyFilters);
   villeEl?.addEventListener("change", applyFilters);
+  sourceEl?.addEventListener("change", applyFilters);
 
   clearBtn?.addEventListener("click", () => {
     searchEl.value = "";
@@ -98,6 +104,7 @@
     contratEl.value = "";
     secteurEl.value = "";
     villeEl.value = "";
+    sourceEl.value = "";
     clearBtn.hidden = true;
     applyFilters();
   });
