@@ -41,12 +41,16 @@ def get_token(client_id: str, client_secret: str) -> str | None:
                 "grant_type": "client_credentials",
                 "client_id": client_id,
                 "client_secret": client_secret,
-                "scope": "o2dsoffre",
+                "scope": "api_offresdemploiv2 o2dsoffre",
             },
             headers={"Content-Type": "application/x-www-form-urlencoded"},
             timeout=15,
         )
-        resp.raise_for_status()
+        if not resp.ok:
+            logger.warning(
+                f"[FranceTravail] Échec token — HTTP {resp.status_code} : {resp.text[:500]}"
+            )
+            return None
         return resp.json()["access_token"]
     except Exception as e:
         logger.warning(f"[FranceTravail] Impossible d'obtenir le token : {e}")
