@@ -11,6 +11,7 @@ import logging
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path
+from zoneinfo import ZoneInfo
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -83,8 +84,11 @@ def run():
     offres = merge(sources)
 
     # 3. Sauvegarde
-    today      = datetime.today().strftime("%Y-%m-%d")
-    now_label  = datetime.today().strftime("%d/%m/%Y à %Hh%M")
+    # Heure de Paris (UTC+1/+2 selon DST) — datetime.today() donnerait l'heure UTC
+    # sur GitHub Actions, ce qui rendrait le badge trompeur pour un utilisateur français.
+    _now      = datetime.now(ZoneInfo("Europe/Paris"))
+    today     = _now.strftime("%Y-%m-%d")
+    now_label = _now.strftime("%d/%m/%Y à %Hh%M")
 
     payload = {
         "last_update": now_label,
@@ -102,7 +106,7 @@ def run():
     logger.info(f"✓ Archive {archive_file.name} créée")
 
     # Nettoyage des archives > 90 jours (politique de rétention)
-    cutoff = datetime.today() - timedelta(days=90)
+    cutoff = _now.replace(tzinfo=None) - timedelta(days=90)
     for old_archive in HISTORY_DIR.glob("*.json"):
         try:
             file_date = datetime.strptime(old_archive.stem, "%Y-%m-%d")

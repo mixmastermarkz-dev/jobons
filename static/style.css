@@ -474,7 +474,13 @@ body {
   line-height: 1.8;
 }
 
-.footer-copy { color: var(--text-subtle) !important; }
+.footer-legal {
+  font-size: 11.5px !important;
+  color: var(--text-subtle) !important;
+  margin-top: 6px;
+  line-height: 1.7;
+}
+.footer-copy { color: var(--text-subtle) !important; margin-top: 4px; }
 
 /* ═══════════════ RESPONSIVE ═══════════════ */
 @media (max-width: 640px) {

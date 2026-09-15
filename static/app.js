@@ -21,11 +21,18 @@
   const cards = Array.from(grid ? grid.querySelectorAll(".job-card") : []);
 
   // ── Remplir dynamiquement le filtre Secteur ──────────────────
-  const secteurs = [...new Set(
-    cards
-      .map(c => c.dataset.secteur)
-      .filter(Boolean)
-  )].sort();
+  // Limite aux secteurs présents dans au moins 2 offres, triés par fréquence
+  // décroissante puis par ordre alphabétique, maximum 20 options.
+  const secteurCount = {};
+  cards.forEach(c => {
+    const s = c.dataset.secteur;
+    if (s) secteurCount[s] = (secteurCount[s] || 0) + 1;
+  });
+  const secteurs = Object.entries(secteurCount)
+    .filter(([, n]) => n >= 2)
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "fr"))
+    .slice(0, 20)
+    .map(([s]) => s);
 
   secteurs.forEach(s => {
     const opt = document.createElement("option");
