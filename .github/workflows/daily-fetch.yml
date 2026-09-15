@@ -46,6 +46,7 @@ jobs:
           FRANCE_TRAVAIL_CLIENT_SECRET: ${{ secrets.FRANCE_TRAVAIL_CLIENT_SECRET }}
           ADZUNA_APP_ID:                ${{ secrets.ADZUNA_APP_ID }}
           ADZUNA_APP_KEY:               ${{ secrets.ADZUNA_APP_KEY }}
+          APPRENTISSAGE_API_KEY:        ${{ secrets.APPRENTISSAGE_API_KEY }}
         run: python scripts/fetch_jobs.py
 
       # 6. Déploiement FTP vers OVH

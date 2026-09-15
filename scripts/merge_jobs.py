@@ -72,6 +72,7 @@ LABELS_CONTRAT = {
     "MIS": "Intérim",
     "SAI": "Saisonnier",
     "CDI": "CDI",
+    "APP": "Alternance",   # Apprentissage et Professionnalisation (La Bonne Alternance)
     "":   "Non précisé",
 }
 
@@ -170,8 +171,8 @@ def merge(sources: list[list[dict]]) -> list[dict]:
                 offre["_score"] = score_pertinence(offre)
                 seen[key] = offre
             else:
-                # Garder la source la plus fiable (france_travail > adzuna > rss)
-                priority = {"france_travail": 3, "adzuna": 2}
+                # Garder la source la plus fiable (france_travail > alternance/adzuna > rss)
+                priority = {"france_travail": 3, "alternance": 2, "adzuna": 2}
                 current_prio  = priority.get(seen[key]["source"], 1)
                 incoming_prio = priority.get(offre["source"],     1)
                 if incoming_prio > current_prio:

@@ -17,7 +17,7 @@ load_dotenv()
 # Ajout du dossier parent au path pour imports relatifs
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from scripts import fetch_france_travail, fetch_adzuna, fetch_rss
+from scripts import fetch_france_travail, fetch_adzuna, fetch_rss, fetch_alternance
 from scripts.merge_jobs import merge
 from scripts.generate_site import generate
 
@@ -68,6 +68,15 @@ def run():
         logger.info(f"  → {len(rss)} offres RSS")
     except Exception as e:
         logger.warning(f"RSS échoué : {e}")
+        sources.append([])
+
+    logger.info("Récupération alternance (La Bonne Alternance)…")
+    try:
+        alt = fetch_alternance.fetch()
+        sources.append(alt)
+        logger.info(f"  → {len(alt)} offres alternance")
+    except Exception as e:
+        logger.warning(f"Alternance échoué : {e}")
         sources.append([])
 
     # 2. Fusion et déduplication

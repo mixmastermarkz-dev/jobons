@@ -24,11 +24,13 @@
   --cdd-bg:   #f0fdf4; --cdd-text:  #15803d; --cdd-border: #bbf7d0;
   --mis-bg:   #fefce8; --mis-text:  #a16207; --mis-border: #fef08a;
   --sai-bg:   #fff7ed; --sai-text:  #c2410c; --sai-border: #fed7aa;
+  --app-bg:   #eef2ff; --app-text:  #4338ca; --app-border: #c7d2fe;
 
   /* Source badges */
   --ft-bg:   #eff6ff; --ft-text: #2563eb;
   --az-bg:   #f0fdf4; --az-text: #15803d;
   --rss-bg:  #faf5ff; --rss-text: #7c3aed;
+  --alt-bg:  #fdf4ff; --alt-text: #7e22ce;
 
   --radius-sm: 6px;
   --radius:    10px;
@@ -369,6 +371,7 @@ body {
 .badge-cdd  { background: var(--cdd-bg);  color: var(--cdd-text);  border: 1px solid var(--cdd-border); }
 .badge-mis  { background: var(--mis-bg);  color: var(--mis-text);  border: 1px solid var(--mis-border); }
 .badge-sai  { background: var(--sai-bg);  color: var(--sai-text);  border: 1px solid var(--sai-border); }
+.badge-app  { background: var(--app-bg);  color: var(--app-text);  border: 1px solid var(--app-border); }
 
 /* ── Description ── */
 .job-description {
@@ -422,8 +425,9 @@ body {
   border-radius: 20px;
 }
 
-.source-france_travail { background: var(--ft-bg); color: var(--ft-text); }
-.source-adzuna         { background: var(--az-bg); color: var(--az-text); }
+.source-france_travail { background: var(--ft-bg);  color: var(--ft-text);  }
+.source-adzuna         { background: var(--az-bg);  color: var(--az-text);  }
+.source-alternance     { background: var(--alt-bg); color: var(--alt-text); }
 .source-jobijoba,
 .source-hellowork      { background: var(--rss-bg); color: var(--rss-text); }
 

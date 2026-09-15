@@ -50,6 +50,12 @@ pytest tests/
 1. Aller sur https://developer.adzuna.com/
 2. Créer un compte gratuit → noter `app_id` et `app_key`
 
+### API Apprentissage / La Bonne Alternance (alternance)
+
+1. Aller sur https://api.apprentissage.beta.gouv.fr
+2. Créer un compte développeur → noter la clé API
+3. Usage non commercial uniquement (licence etalab-2.0)
+
 ---
 
 ## Déploiement sur GitHub
@@ -70,6 +76,7 @@ Dans GitHub → Settings → Secrets → Actions, ajouter :
 | `FRANCE_TRAVAIL_CLIENT_SECRET`| ton client_secret       |
 | `ADZUNA_APP_ID`               | ton app_id              |
 | `ADZUNA_APP_KEY`              | ton app_key             |
+| `APPRENTISSAGE_API_KEY`       | clé API LBA (gratuite)  |
 | `FTP_HOST`                    | serveur FTP OVH         |
 | `FTP_USERNAME`                | identifiant FTP         |
 | `FTP_PASSWORD`                | mot de passe FTP        |
@@ -161,12 +168,13 @@ Appliqué dans `merge_jobs.py` sur titre + description :
 
 ## Sources de données
 
-| Source        | Type  | État       | Notes                                      |
-|---------------|-------|------------|--------------------------------------------|
-| France Travail| API   | ✅ Actif   | OAuth2, champ expérience structuré         |
-| Adzuna        | API   | ✅ Actif   | REST, type contrat inféré                  |
-| Jobijoba      | RSS   | ❌ Inactif | HTTP 404 — flux supprimé (rachat Indeed)   |
-| HelloWork     | RSS   | ❌ Inactif | RSS supprimé (retourne du HTML)            |
+| Source                  | Type  | État       | Notes                                              |
+|-------------------------|-------|------------|----------------------------------------------------|
+| France Travail          | API   | ✅ Actif   | OAuth2, champ expérience structuré                 |
+| Adzuna                  | API   | ✅ Actif   | REST, type contrat inféré                          |
+| La Bonne Alternance     | API   | ✅ Actif   | API gouvernementale gratuite, alternance CAP→Bac   |
+| Jobijoba                | RSS   | ❌ Inactif | HTTP 404 — flux supprimé (rachat Indeed)           |
+| HelloWork               | RSS   | ❌ Inactif | RSS supprimé (retourne du HTML)                    |
 
 Les sources RSS désactivées sont conservées dans le code pour traçabilité et
 pourront être remplacées dans une itération future.
